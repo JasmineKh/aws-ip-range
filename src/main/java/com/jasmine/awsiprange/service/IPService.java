@@ -8,7 +8,6 @@ import com.jasmine.awsiprange.config.RegionEnum;
 import com.jasmine.awsiprange.data.IPInfo;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -17,7 +16,7 @@ public class IPService {
 
 
 
-    public String loadAndFindIPsByRegion(String region) {
+    public String loadAndFindIPsByRegion(String region) throws Exception {
         Map<String, List<IPInfo>> ipInfoMap = readJsonAndLoadIPs();
         List<IPInfo> ipInfoV4s = ipInfoMap.get("ipv4");
         List<IPInfo> ipInfoV6s = ipInfoMap.get("ipv6");
@@ -44,14 +43,13 @@ public class IPService {
             ip6s = ip6s.concat(ipInfoV6.ip_prefix()+"\n");
         }
 
-        ips = "#".repeat(8) + "ipv4s:" + "#".repeat(8) + "\n" + ip4s + "\n" + "ip6s:" + "\n" + ip6s;
+        ips = "#".repeat(8) + "ipv4s" + "#".repeat(8) + "\n" + ip4s + "\n" + "#".repeat(8) + "ipv6s" + "#".repeat(8) + "\n" + ip6s;
         return ips;
     }
 
-    private Map<String, List<IPInfo>> readJsonAndLoadIPs() {
+    private Map<String, List<IPInfo>> readJsonAndLoadIPs() throws Exception {
         final Map<String , List<IPInfo>> ipInfoMap = new HashMap<>();
 
-        try {
             URL url = new URL("https://ip-ranges.amazonaws.com/ip-ranges.json");
             ObjectMapper mapper = new JsonMapper();
             JsonNode jsonNode = mapper.readTree(url);
@@ -59,9 +57,6 @@ public class IPService {
             ipInfoMap.put("ipv4", new ArrayList<>(Arrays.asList(mapper.treeToValue(jsonNode.get("prefixes"), IPInfo[].class))));
             ipInfoMap.put("ipv6", new ArrayList<>(Arrays.asList(mapper.treeToValue(jsonNode.get("ipv6_prefixes"), IPInfo[].class))));
 
-        } catch (IOException exception){
-            System.out.println(exception.getMessage());
-        }
 
         return ipInfoMap;
     }
