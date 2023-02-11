@@ -1,0 +1,12 @@
+version: "3.9"
+    
+services:
+  aws-ip-range:
+    container_name:   aws-ip-range
+    image:   aws-ip-range:0.1
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always

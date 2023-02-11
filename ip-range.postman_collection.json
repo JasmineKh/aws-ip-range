@@ -1,0 +1,36 @@
+{
+	"info": {
+		"_postman_id": "91f6502e-acab-4af6-9cba-eb48c17361b1",
+		"name": "ip-range",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16966292"
+	},
+	"item": [
+		{
+			"name": "get ips by region",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ip/list?region=CN",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ip",
+						"list"
+					],
+					"query": [
+						{
+							"key": "region",
+							"value": "CN"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
