@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 
 
 @Validated
@@ -23,7 +22,7 @@ public class IPController {
     }
 
     @GetMapping(value = "/list", produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> list(@RequestParam @RegionType String region) throws Exception {
+    public ResponseEntity<String> getIpsByRegion(@RequestParam @RegionType String region) throws Exception {
 
         String ips =  ipService.loadAndFindIPsByRegion(region);
         return new ResponseEntity<>(ips, HttpStatus.OK);

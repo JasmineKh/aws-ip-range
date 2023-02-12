@@ -8,7 +8,7 @@ public class RegionTypeValidator implements ConstraintValidator<RegionType, Stri
 
     @Override
     public boolean isValid(String region, ConstraintValidatorContext constraintValidatorContext) {
-        if (region == null) {
+        if (region == null || region.isBlank()) {
             return false;
         }
 
